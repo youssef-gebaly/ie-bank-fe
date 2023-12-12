@@ -26,6 +26,7 @@
                 <th scope="col">Account Name</th>
                 <th scope="col">Account Number</th>
                 <th scope="col">Account Balance</th>
+                <th scope="col">Account Country</th>
                 <th scope="col">Account Currency</th>
                 <th scope="col">Account Status</th>
                 <th scope="col">Actions</th>
@@ -36,6 +37,7 @@
                 <td>{{ account.name }}</td>
                 <td>{{ account.account_number }}</td>
                 <td>{{ account.balance }}</td>
+                <td>{{ account.country }}</td>
                 <td>{{ account.currency }}</td>
                 <td>
                   <span
@@ -110,6 +112,20 @@
             >
             </b-form-input>
           </b-form-group>
+          <b-form-group
+            id="form-country-group"
+            label="Country:"
+            label-for="form-country-input"
+          >
+            <b-form-input
+              id="form-country-input"
+              type="text"
+              v-model="createAccountForm.country"
+              placeholder="Country of Residence"
+              required
+            >
+            </b-form-input>
+          </b-form-group>
 
           <b-button type="submit" variant="outline-info">Submit</b-button>
         </b-form>
@@ -143,6 +159,7 @@
       </b-modal>
       <!-- End of Modal for Edit Account-->
     </div>
+    <router-link to="/" class="btn btn-primary">Back</router-link>
   </div>
 </template>
 
@@ -155,6 +172,7 @@ export default {
       accounts: [],
       createAccountForm: {
         name: "",
+        country: "",
         currency: "",
       },
       editAccountForm: {
@@ -256,6 +274,7 @@ export default {
     // Initialize forms empty
     initForm() {
       this.createAccountForm.name = "";
+      this.createAccountForm.country = "";
       this.createAccountForm.currency = "";
       this.editAccountForm.id = "";
       this.editAccountForm.name = "";
@@ -267,6 +286,7 @@ export default {
       this.$refs.addAccountModal.hide(); //hide the modal when submitted
       const payload = {
         name: this.createAccountForm.name,
+        country: this.createAccountForm.country,
         currency: this.createAccountForm.currency,
       };
       this.RESTcreateAccount(payload);
@@ -296,7 +316,7 @@ export default {
   },
 
   /***************************************************
-   * LIFECYClE HOOKS
+   * LIFECYCLE HOOKS
    ***************************************************/
   created() {
     this.RESTgetAccounts();

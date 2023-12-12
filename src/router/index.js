@@ -7,6 +7,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    name: 'HomePage',
+    component: HomePage
+  },
+  {
     path: '/skull',
     name: 'Skull',
     component: Skull
